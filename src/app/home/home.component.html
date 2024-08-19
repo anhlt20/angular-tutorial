@@ -1,0 +1,48 @@
+<div class="column gap-1">
+  <!-- Add product button -->
+   <button
+   type="button"
+   pButton
+   icon="pi pi-check"
+   (click)="toggleAddPopup()"
+   label="Add product"
+   class="add-product-btn"
+   ></button>
+
+  <!-- Products Section -->
+  <div class="row wrap gap-1 space-evenly">
+    <app-product
+    *ngFor="let product of products"
+    [product]="product"
+    (edit)="toggleEditPopup($event)"
+    (delete)="toggleDeletePopup($event)"
+    ></app-product>
+  </div>
+
+  <!-- Paginator -->
+  <p-paginator
+  [rows]="rows"
+  [totalRecords]="totalRecords"
+  [rowsPerPageOptions]="[6, 12, 18]"
+  (onPageChange)="onPageChange($event)"
+  #paginator/>
+</div>
+
+
+<!-- Edit popup -->
+<app-edit-popup
+  header="Edit Product"
+  [(display)]="displayEditPopup"
+  [product]="selectedProduct"
+  (confirm)="onConfirmEdit($event)"
+>
+</app-edit-popup>
+
+<!-- Add popup -->
+<app-edit-popup
+  header="Add Product"
+  [(display)]="displayAddPopup"
+  [product]="selectedProduct"
+  (confirm)="onConfirmAdd($event)"
+>
+</app-edit-popup>
